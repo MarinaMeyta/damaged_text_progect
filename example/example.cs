@@ -7,6 +7,7 @@ namespace HelloWorld
 		static void Main()
 		{
 			Console.WriteLine ("Hello, Maks! :)");
+			Console.WriteLine ();
 			Console.ReadKey ();
 		}
 	}
