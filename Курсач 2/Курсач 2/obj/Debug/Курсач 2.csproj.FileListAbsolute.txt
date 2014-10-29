@@ -1,0 +1,8 @@
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\bin\Debug\Курсач 2.exe
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\bin\Debug\Курсач 2.pdb
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач_2.Form1.resources
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач_2.Properties.Resources.resources
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.csproj.GenerateResource.Cache
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.exe
+C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.pdb
