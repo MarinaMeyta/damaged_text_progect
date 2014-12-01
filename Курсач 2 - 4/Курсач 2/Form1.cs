@@ -309,6 +309,36 @@ namespace Курсач_2
             }
         }
 
+        public Variants[] VariantsClean(Variants[] v, int id)
+        {
+            int i, j;
+            string sample = "";
+            for (i = 0; i < v.Length; i++)
+            {
+                if (v[i].id == id)
+                {
+                    if (sample == "")
+                    {
+                        sample = v[i].variant;
+                        continue;
+                    }
+                    if (v[i].variant == sample)
+                    {
+                        if (i < v.Length - 1)
+                        {
+                            for (j = i + 1; j < v.Length; j++)
+                                v[j - 1].variant = v[j].variant;
+                        }
+                        Array.Resize(ref v, v.Length - 1);
+                        i--;
+                    }
+                    if (v[i].variant != sample)
+                        sample = v[i].variant;
+                }
+            }
+            return v;
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -358,7 +388,6 @@ namespace Курсач_2
             int count = 0;
             int a0, a1;
             string sub = " ";
-            //ReadFMat();
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
             FormatRepText(richTextBox1);
@@ -409,6 +438,7 @@ namespace Курсач_2
                                 vars[k].variant = sub;
                                 vars[k].variant = vars[k].variant.Remove(i, 1);
                                 vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m1[k] + 1072)));
+                                sub = vars[k].variant;
                                 vars[k].id = j;
                             }
                         }
@@ -456,6 +486,7 @@ namespace Курсач_2
                                 vars[k].variant = sub;
                                 vars[k].variant = vars[k].variant.Remove(i, 1);
                                 vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
+                                sub = vars[k].variant;
                                 vars[k].id = j;
                             }
                         }
@@ -540,6 +571,7 @@ namespace Курсач_2
                                         vars[count].variant = sub;
                                         vars[count].variant = vars[count].variant.Remove(i, 1);
                                         vars[count].variant = vars[count].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
+                                        sub = vars[count].variant;
                                         vars[count].id = j;
                                         count++;
                                     }
@@ -553,24 +585,7 @@ namespace Курсач_2
                     }
                 }
 
-                //Пытался сделать замену найденным из словаря словом, но что-то не прокнуло
-
-                //bool found = false;
-                //for (i = 0; i < vars.Length; i++)
-                //{
-                    //if (vars[i].id == j)
-                    //{
-                        //if (File.Exists(DefaultPath + vars[i].variant[0] + @"\" + Convert.ToString(vars[i].variant.Length)))
-                        //{
-                            //if (IsInDict(vars[i].variant, DefaultPath + vars[i].variant[0] + @"\" + Convert.ToString(vars[i].variant.Length)))
-                            //{
-                                //found = true;
-                                //InsertWord(richTextBox1, j, vars[i].variant);
-                                //break;
-                            //}
-                        //}
-                    //}
-                //}
+                vars = VariantsClean(vars, j);
 
                 if ((sub != "")&&(edited == true))
                     comboBox1.Items.Add(Convert.ToString(j));
