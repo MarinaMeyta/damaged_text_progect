@@ -353,6 +353,7 @@ namespace Курсач_2
 
         private void Repare_Click(object sender, EventArgs e)
         {
+            bool edited = false;
             int i, j = 1, k, l;
             int count = 0;
             int a0, a1;
@@ -373,6 +374,7 @@ namespace Курсач_2
                     {
                         try
                         {
+                            edited = true;
                             a1 = Convert.ToInt32(sub[i + 1]) - 1072;
                             max = FMatrix[0, a1];
                             for (k = 1; k < 32; k++)
@@ -419,6 +421,7 @@ namespace Курсач_2
                     {
                         try
                         {
+                            edited = true;
                             a0 = Convert.ToInt32(sub[i - 1]) - 1072;
                             max = FMatrix[a0, 0];
                             for (k = 1; k < 32; k++)
@@ -465,6 +468,7 @@ namespace Курсач_2
                     {
                         try
                         {
+                            edited = true;
                             a0 = Convert.ToInt32(sub[i - 1]) - 1072;
                             a1 = Convert.ToInt32(sub[i + 1]) - 1072;
                             //Поиск самых частых элементов в строке
@@ -568,7 +572,7 @@ namespace Курсач_2
                     //}
                 //}
 
-                if (sub != "")
+                if ((sub != "")&&(edited == true))
                     comboBox1.Items.Add(Convert.ToString(j));
                 j++;
             }

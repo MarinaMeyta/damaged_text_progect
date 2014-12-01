@@ -6,3 +6,5 @@ C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Ку�
 C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.csproj.GenerateResource.Cache
 C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.exe
 C:\Users\Максим\Documents\Visual Studio 2008\Projects\Курсач 2\Курсач 2\obj\Debug\Курсач 2.pdb
+C:\Users\Максим\Documents\CourseWork\damaged_text_progect\Курсач 2 - 4\Курсач 2\obj\Debug\Курсач 2.exe
+C:\Users\Максим\Documents\CourseWork\damaged_text_progect\Курсач 2 - 4\Курсач 2\obj\Debug\Курсач 2.pdb
