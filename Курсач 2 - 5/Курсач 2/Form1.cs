@@ -411,206 +411,213 @@ namespace Курсач_2
             Array.Resize<Variants>(ref vars, 0);
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
-            FormatRepText(richTextBox1);
-            while (sub != "")
+            if (richTextBox1.Text == "")
+                MessageBox.Show("Недопустимое значение в текстовом поле!");
+            else if (richTextBox1.Text.Length > 2500)
+                MessageBox.Show("Слишком длинный текст для обработки!");
+            else
             {
-                sub = ExtractWord(richTextBox1, j);
-                edited = false;
-                for (i = 0; i < sub.Length; i++)
+                FormatRepText(richTextBox1);
+                while (sub != "")
                 {
+                    sub = ExtractWord(richTextBox1, j);
+                    edited = false;
+                    for (i = 0; i < sub.Length; i++)
+                    {
 
-                    if ((i == 0) && (sub[i] == '*'))                            //Если * в самом начале строки
-                    {
-                        try
+                        if ((i == 0) && (sub[i] == '*'))                            //Если * в самом начале строки
                         {
-                            edited = true;
-                            a1 = Convert.ToInt32(sub[i + 1]) - 1072;
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
+                            try
                             {
-                                if (FMatrix[k, a1] > max)
+                                edited = true;
+                                a1 = Convert.ToInt32(sub[i + 1]) - 1072;
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
                                 {
-                                    max = FMatrix[k, a1];
-                                    m1[0] = k;
-                                }
-                            }
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[k, a1] > max) && (k != m1[0]))
-                                {
-                                    max = FMatrix[k, a1];
-                                    m1[1] = k;
-                                }
-                            }
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[k, a1] > max) && (k != m1[0]) && (k != m1[1]))
-                                {
-                                    max = FMatrix[k, a1];
-                                    m1[2] = k;
-                                }
-                            }
-                            Array.Resize<Variants>(ref vars, 3);
-                            for (k = 0; k < 3; k++)
-                            {
-                                vars[k].variant = sub;
-                                vars[k].variant = vars[k].variant.Remove(i, 1);
-                                vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m1[k] + 1072)));
-                                sub = vars[k].variant;
-                                vars[k].id = j;
-                            }
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                    if ((i == sub.Length - 1) && (sub[i] == '*'))               //Если * в конце строки
-                    {
-                        try
-                        {
-                            edited = true;
-                            a0 = Convert.ToInt32(sub[i - 1]) - 1072;
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if (FMatrix[a0, k] > max)
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[0] = k;
-                                }
-                            }
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[a0, k] > max) && (k != m0[0]))
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[1] = k;
-                                }
-                            }
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[a0, k] > max) && (k != m0[0]) && (k != m0[1]))
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[2] = k;
-                                }
-                            }
-                            Array.Resize<Variants>(ref vars, 3);
-                            for (k = 0; k < 3; k++)
-                            {
-                                vars[k].variant = sub;
-                                vars[k].variant = vars[k].variant.Remove(i, 1);
-                                vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
-                                sub = vars[k].variant;
-                                vars[k].id = j;
-                            }
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                    if ((i > 0) && (i < sub.Length - 1) && (sub[i] == '*'))     //Если * где-то вдали от краев
-                    {
-                        try
-                        {
-                            edited = true;
-                            a0 = Convert.ToInt32(sub[i - 1]) - 1072;
-                            a1 = Convert.ToInt32(sub[i + 1]) - 1072;
-                            //Поиск самых частых элементов в строке
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if (FMatrix[a0, k] > max)
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[0] = k;
-                                }
-                            }
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[a0, k] > max) && (k != m0[0]))
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[1] = k;
-                                }
-                            }
-                            max = FMatrix[a0, 0];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[a0, k] > max) && (k != m0[0]) && (k != m0[1]))
-                                {
-                                    max = FMatrix[a0, k];
-                                    m0[2] = k;
-                                }
-                            }
-                            //Конец поиска
-                            //Поиск по столбцу
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if (FMatrix[k, a1] > max)
-                                {
-                                    max = FMatrix[k, a1];
-                                    m1[0] = k;
-                                }
-                            }
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[k, a1] > max) && (k != m1[0]))
-                                {
-                                    max = FMatrix[k, a1];
-                                    m1[1] = k;
-                                }
-                            }
-                            max = FMatrix[0, a1];
-                            for (k = 1; k < 32; k++)
-                            {
-                                if ((FMatrix[k, a1] > max) && (k != m1[0]) && (k != m1[1]))
-                                {
-                                    max = FMatrix[k, a1];
-                                    m1[2] = k;
-                                }
-                            }
-                            //Конец поисков
-                            for (k = 0; k < 3; k++)
-                            {
-                                for (l = 0; l < 3; l++)
-                                {
-                                    if (m0[k] == m1[l])
+                                    if (FMatrix[k, a1] > max)
                                     {
-                                        //if (vars.Length < count + 1)
-                                        Array.Resize(ref vars, vars.Length + 1);
-                                        vars[vars.Length - 1].variant = sub;
-                                        vars[vars.Length - 1].variant = vars[vars.Length - 1].variant.Remove(i, 1);
-                                        vars[vars.Length - 1].variant = vars[vars.Length - 1].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
-                                        sub = vars[vars.Length - 1].variant;
-                                        vars[vars.Length - 1].id = j;
+                                        max = FMatrix[k, a1];
+                                        m1[0] = k;
+                                    }
+                                }
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[k, a1] > max) && (k != m1[0]))
+                                    {
+                                        max = FMatrix[k, a1];
+                                        m1[1] = k;
+                                    }
+                                }
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[k, a1] > max) && (k != m1[0]) && (k != m1[1]))
+                                    {
+                                        max = FMatrix[k, a1];
+                                        m1[2] = k;
+                                    }
+                                }
+                                Array.Resize<Variants>(ref vars, 3);
+                                for (k = 0; k < 3; k++)
+                                {
+                                    vars[k].variant = sub;
+                                    vars[k].variant = vars[k].variant.Remove(i, 1);
+                                    vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m1[k] + 1072)));
+                                    sub = vars[k].variant;
+                                    vars[k].id = j;
+                                }
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
+                        if ((i == sub.Length - 1) && (sub[i] == '*'))               //Если * в конце строки
+                        {
+                            try
+                            {
+                                edited = true;
+                                a0 = Convert.ToInt32(sub[i - 1]) - 1072;
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if (FMatrix[a0, k] > max)
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[0] = k;
+                                    }
+                                }
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[a0, k] > max) && (k != m0[0]))
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[1] = k;
+                                    }
+                                }
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[a0, k] > max) && (k != m0[0]) && (k != m0[1]))
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[2] = k;
+                                    }
+                                }
+                                Array.Resize<Variants>(ref vars, 3);
+                                for (k = 0; k < 3; k++)
+                                {
+                                    vars[k].variant = sub;
+                                    vars[k].variant = vars[k].variant.Remove(i, 1);
+                                    vars[k].variant = vars[k].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
+                                    sub = vars[k].variant;
+                                    vars[k].id = j;
+                                }
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
+                        if ((i > 0) && (i < sub.Length - 1) && (sub[i] == '*'))     //Если * где-то вдали от краев
+                        {
+                            try
+                            {
+                                edited = true;
+                                a0 = Convert.ToInt32(sub[i - 1]) - 1072;
+                                a1 = Convert.ToInt32(sub[i + 1]) - 1072;
+                                //Поиск самых частых элементов в строке
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if (FMatrix[a0, k] > max)
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[0] = k;
+                                    }
+                                }
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[a0, k] > max) && (k != m0[0]))
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[1] = k;
+                                    }
+                                }
+                                max = FMatrix[a0, 0];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[a0, k] > max) && (k != m0[0]) && (k != m0[1]))
+                                    {
+                                        max = FMatrix[a0, k];
+                                        m0[2] = k;
+                                    }
+                                }
+                                //Конец поиска
+                                //Поиск по столбцу
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if (FMatrix[k, a1] > max)
+                                    {
+                                        max = FMatrix[k, a1];
+                                        m1[0] = k;
+                                    }
+                                }
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[k, a1] > max) && (k != m1[0]))
+                                    {
+                                        max = FMatrix[k, a1];
+                                        m1[1] = k;
+                                    }
+                                }
+                                max = FMatrix[0, a1];
+                                for (k = 1; k < 32; k++)
+                                {
+                                    if ((FMatrix[k, a1] > max) && (k != m1[0]) && (k != m1[1]))
+                                    {
+                                        max = FMatrix[k, a1];
+                                        m1[2] = k;
+                                    }
+                                }
+                                //Конец поисков
+                                for (k = 0; k < 3; k++)
+                                {
+                                    for (l = 0; l < 3; l++)
+                                    {
+                                        if (m0[k] == m1[l])
+                                        {
+                                            //if (vars.Length < count + 1)
+                                            Array.Resize(ref vars, vars.Length + 1);
+                                            vars[vars.Length - 1].variant = sub;
+                                            vars[vars.Length - 1].variant = vars[vars.Length - 1].variant.Remove(i, 1);
+                                            vars[vars.Length - 1].variant = vars[vars.Length - 1].variant.Insert(i, Convert.ToString(Convert.ToChar(m0[k] + 1072)));
+                                            sub = vars[vars.Length - 1].variant;
+                                            vars[vars.Length - 1].id = j;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        catch
-                        {
-                            continue;
+                            catch
+                            {
+                                continue;
+                            }
                         }
                     }
+
+                    vars = VariantsClean(vars, j);
+
+                    ReturnToText(richTextBox1, vars, j);
+
+                    if ((sub != "") && (edited == true))
+                        comboBox1.Items.Add(Convert.ToString(j));
+                    j++;
                 }
-
-                vars = VariantsClean(vars, j);
-
-                ReturnToText(richTextBox1, vars, j);
-
-                if ((sub != "")&&(edited == true))
-                    comboBox1.Items.Add(Convert.ToString(j));
-                j++;
             }
         }
 
